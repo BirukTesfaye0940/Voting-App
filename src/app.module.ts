@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { PollModule } from './poll/poll.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/voting-app'), UserModule, PollModule, JwtModule.register({
+  imports: [MongooseModule.forRoot('mongodb://localhost/voting-app'), UserModule, PollModule,AuthModule, JwtModule.register({
     secret: 'Biruk12345',
     signOptions: {expiresIn: '1h'}
   })],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [AuthService],
 })
 export class AppModule {}

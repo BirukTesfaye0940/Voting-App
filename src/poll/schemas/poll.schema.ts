@@ -7,7 +7,7 @@ export class Option {
   text: string;
 
   @Prop({default: 0})
-  votes: string;
+  votes: number;
 }
 
 @Schema()
