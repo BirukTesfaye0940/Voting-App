@@ -5,11 +5,19 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 
-@WebSocketGateway()
+@WebSocketGateway(
+  {
+    cors: {
+      origin: 'http://localhost:5173', // Your frontend URL
+      methods: ['GET', 'POST'],
+      credentials: true,
+    },
+  }
+)
 export class PollGateway {
   @WebSocketServer() server: Server;
 
-  constructor(private pollService: PollService) {}
+  constructor(private pollService: PollService) { }
 
   @SubscribeMessage('joinPoll')
   @UseGuards(AuthGuard('jwt'))

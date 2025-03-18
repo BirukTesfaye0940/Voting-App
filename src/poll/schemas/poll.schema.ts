@@ -6,8 +6,11 @@ export class Option {
   @Prop({required: true})
   text: string;
 
-  @Prop({default: 0})
+  @Prop({default: 0 })
   votes: number;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
+  votedBy: Types.ObjectId[];
 }
 
 @Schema()

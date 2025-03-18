@@ -8,13 +8,15 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: {username: string; password: string}) {
-    return this.userService.createUser(body.username, body.password);
+    const user = await this.userService.createUser(body.username, body.password);
+    return { userId: user.id, username: user.username };
   }
 
   @Post('login')
   async login(@Body() body: { username: string; password: string }) {
     const user = await this.authService.validateUser(body.username, body.password);
     if(!user) throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED)
-    return this.authService.login(user)
+      const token = await this.authService.login(user);
+      return { ...token, userId: user.id, username: user.username };
   }
 }

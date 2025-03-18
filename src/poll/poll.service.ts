@@ -2,16 +2,15 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Poll } from './schemas/poll.schema';
-import { nanoid } from 'nanoid';
 
 @Injectable()
 export class PollService {
   constructor(@InjectModel('Poll') private pollModel: Model<Poll>) {}
 
   async createPoll(title: string, options: string[], ownerId: string) {
-    const joinCode = nanoid(8);
+    const joinCode = Math.random().toString(36).substring(2,10);
     const poll = new this.pollModel({
-      title, options: options.map(text => ({text})),
+      title, options: options.map(text => ({text, votes:0, votedBy: []})),
       joinCode,
       owner : ownerId
     })
@@ -44,7 +43,7 @@ export class PollService {
     const userObjectId = new Types.ObjectId(userId);
     if (!poll.participants.includes(userObjectId)) throw new HttpException('Not a participant', HttpStatus.FORBIDDEN);
     
-    poll.options.push({text, votes: 0});
+    poll.options.push({text, votes: 0, votedBy: []});
     return poll.save();
   }
 
@@ -67,9 +66,25 @@ export class PollService {
   async vote(pollId: string, optionIndex: number, userId: string) {
     const poll = await this.pollModel.findById(pollId);
     if (!poll) throw new HttpException('Poll not found', HttpStatus.NOT_FOUND);
-    if (poll.status !== 'active') throw new Error('Poll not active');
-    if (!poll.participants.includes(new Types.ObjectId(userId))) throw new HttpException('Not a participant', 404);
-    poll.options[optionIndex].votes += 1;
-    return poll.save();
+    if (poll.status !== 'active') throw new HttpException('Poll not active', HttpStatus.FORBIDDEN);
+    const userObjectId = new Types.ObjectId(userId);
+
+    if (!poll.participants.some(participant => participant.equals(userObjectId))) {
+      throw new HttpException('Not a participant', HttpStatus.FORBIDDEN);
+    }
+    if (optionIndex < 0 || optionIndex >= poll.options.length) {
+      throw new HttpException('Invalid option index', HttpStatus.BAD_REQUEST);
+    }
+  
+    const option = poll.options[optionIndex];
+    if (option.votedBy.some(id => id.equals(userObjectId))) {
+      throw new HttpException('You have already voted', HttpStatus.FORBIDDEN);
+    }
+  
+    option.votes += 1;
+    option.votedBy.push(userObjectId);
+    poll.markModified('options');
+    const updatedPoll = await poll.save();
+    return updatedPoll;
   }
 }
