@@ -1,98 +1,45 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Here’s a concise and professional description for your GitHub repository that highlights the backend of your voting app. It focuses on the key features, technologies, and architecture of the NestJS backend you’ve built, without mentioning the frontend since you haven’t pushed it yet.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### GitHub Repository Description for Voting App Backend
 
-## Description
+**Voting App Backend**  
+A robust RESTful API and WebSocket-powered backend for a real-time voting application, built with **NestJS**, **MongoDB**, and **TypeScript**. This backend enables users to create polls, join them with unique codes, add options, and cast votes, with live updates delivered via WebSockets. It features secure user authentication using **JWT**, **Passport**, and **Bcrypt**, ensuring protected access to poll management and voting actions.  
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Key Features**:  
+- **Poll Management**: Create polls with customizable options, start/close voting, and track results.  
+- **Real-Time Updates**: Utilizes **Socket.IO** to broadcast vote updates instantly to all participants.  
+- **Authentication**: Secure user registration and login with JWT-based authorization.  
+- **Vote Integrity**: Prevents duplicate voting by tracking user votes per option.  
+- **Data Persistence**: Stores polls, options, and user data in **MongoDB** with **Mongoose** for schema management.  
 
-## Project setup
+**Tech Stack**:  
+- **NestJS**: Modular framework for building scalable server-side applications.  
+- **MongoDB & Mongoose**: NoSQL database with schema validation for flexible data storage.  
+- **Socket.IO**: Enables real-time bidirectional communication.  
+- **JWT & Passport**: Authentication and authorization middleware.  
+- **Bcrypt**: Password hashing for secure user credentials.  
 
-```bash
-$ npm install
-```
+**How It Works**:  
+The backend exposes RESTful endpoints (e.g., `POST /polls`, `POST /polls/:id/vote`) for poll creation, management, and voting, secured with JWT guards. A WebSocket gateway handles real-time vote updates, ensuring all participants see changes instantly. MongoDB stores poll data, with logic to enforce rules like preventing owners from voting or participants from re-voting.
 
-## Compile and run the project
+**Setup**:  
+1. Clone the repo: `git clone <repo-url>`  
+2. Install dependencies: `npm install`  
+3. Configure MongoDB connection in `app.module.ts`.  
+4. Run: `npm run start:dev`  
 
-```bash
-# development
-$ npm run start
+This backend is designed for extensibility and serves as the core for a full-stack voting application. Contributions and feedback welcome!
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+### Explanation
+- **Purpose**: Clearly states it’s a backend for a voting app, focusing on its role in the system.
+- **Features**: Highlights the main functionalities (poll management, real-time updates, authentication, vote integrity) to showcase what you’ve built.
+- **Tech Stack**: Lists the key technologies, giving a quick overview of the tools you used.
+- **How It Works**: Provides a high-level explanation of the architecture (REST + WebSockets + MongoDB), which is useful for potential recruiters or collaborators.
+- **Setup**: Simple instructions to get it running, making it accessible to others.
+- **Tone**: Professional yet approachable, positioning it as a serious project open to improvement.
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Feel free to tweak it based on your preferences (e.g., add a license, mention specific challenges you overcame, or link to a live demo if you host it later). Let me know if you’d like adjustments! Great job on the backend—it’s a solid piece of work for your portfolio!
